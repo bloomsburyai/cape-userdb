@@ -11,7 +11,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'argon2-cffi==16.3.0',
-        'peewee==3.5.2'
+        'peewee==3.5.2',
         'pytest==3.6.4',
     ],
     package_data={
