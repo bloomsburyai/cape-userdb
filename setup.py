@@ -13,6 +13,7 @@ setup(
         'argon2-cffi==16.3.0',
         'peewee==3.5.2',
         'pytest==3.6.4',
+        'pytz==2017.2',
     ],
     package_data={
         '': ['*.*'],
