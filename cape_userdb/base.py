@@ -59,7 +59,9 @@ class ArgonField(CharField):
 
 
 def utc_now() -> datetime.datetime:
-    return datetime.datetime.utcnow().replace(tzinfo=utc)
+    # Peewee does not support time aware timezones so this: datetime.datetime.utcnow().replace(tzinfo=utc)
+    # would return a string, therefore we return a utc datetime without timezone info
+    return datetime.datetime.utcnow()
 
 
 class BaseDB(Model):
