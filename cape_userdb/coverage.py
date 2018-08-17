@@ -16,13 +16,13 @@ import datetime
 from typing import Union
 from peewee import CharField, DoubleField
 
-from cape_userdb.base import BaseDB, RealDatetimeField
+from cape_userdb.base import BaseDB, DateTimeField, utc_now
 
 
 class Coverage(BaseDB):
     # Inherited fields are:
-    # modified: Union[RealDatetimeField, datetime.datetime] = RealDatetimeField(default=utc_now, index=True)
+    # modified: Union[DateTimeField, datetime.datetime] = DateTimeField(index=True, default=utc_now)
     # id: int
     user_id: Union[CharField, str] = CharField(index=True)
     coverage: Union[DoubleField, float] = DoubleField()
-    created: Union[RealDatetimeField, datetime.datetime] = RealDatetimeField(default=BaseDB.utc_now)
+    created: Union[DateTimeField, datetime.datetime] = DateTimeField(default=utc_now)

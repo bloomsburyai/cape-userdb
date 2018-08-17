@@ -20,7 +20,7 @@ from peewee import CharField, BooleanField
 import secrets
 import datetime
 from cape_userdb import cape_userdb_settings
-from cape_userdb.base import BaseDB, CompressedPickleField, ArgonField, DateTimeField
+from cape_userdb.base import BaseDB, CompressedPickleField, ArgonField, DateTimeField, utc_now
 from hashlib import sha256
 
 _TOKEN_BYTE_SIZE = 32
@@ -28,7 +28,7 @@ _TOKEN_BYTE_SIZE = 32
 
 class User(BaseDB):
     # Inherited fields are:
-    # modified: Union[CurrentTimestampField, datetime.datetime] = CurrentTimestampField(index=True)
+    # modified: Union[DateTimeField, datetime.datetime] = DateTimeField(index=True, default=utc_now)
     # id: int
     user_id: Union[CharField, str] = CharField(index=True, unique=True)
     password: Union[CharField, str] = ArgonField()
@@ -44,7 +44,7 @@ class User(BaseDB):
     admin_token: Union[CharField, str] = CharField(default=partial(secrets.token_urlsafe, _TOKEN_BYTE_SIZE), index=True,
                                                    unique=True)
     plan: Union[CharField, str] = CharField(default='free')
-    created: Union[DateTimeField, datetime.datetime] = DateTimeField(default=datetime.datetime.now)
+    created: Union[DateTimeField, datetime.datetime] = DateTimeField(default=utc_now)
     onboarding_completed: Union[BooleanField, bool] = BooleanField(default=False)
     # Settings for email forwarding
     forward_email: Union[CharField, str] = CharField(default=cape_userdb_settings.DEFAULT_EMAIL)

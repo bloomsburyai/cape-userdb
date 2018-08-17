@@ -27,7 +27,7 @@ _SESSION_RECHECK_EVERY_SECS = 86400
 class Session(BaseDB):
     recheck_every = _SESSION_RECHECK_EVERY_SECS
     # Inherited fields are:
-    # modified: Union[RealDatetimeField, datetime.datetime] = RealDatetimeField(default=utc_now, index=True)
+    # modified: Union[DateTimeField, datetime.datetime] = DateTimeField(index=True, default=utc_now)
     # id: int
     user_id: Union[CharField, str] = CharField(index=True)
     session_id: Union[CharField, str] = CharField(default=partial(secrets.token_urlsafe, _TOKEN_BYTE_SIZE), index=True,

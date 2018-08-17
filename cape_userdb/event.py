@@ -15,14 +15,14 @@
 import datetime
 
 from typing import Union
-from peewee import CharField, TextField, BooleanField, DoubleField
+from peewee import CharField, TextField, BooleanField, DoubleField, DateTimeField
 
-from cape_userdb.base import BaseDB, CompressedPickleField, RealDatetimeField
+from cape_userdb.base import BaseDB, CompressedPickleField, utc_now
 
 
 class Event(BaseDB):
     # Inherited fields are:
-    # modified: Union[RealDatetimeField, datetime.datetime] = RealDatetimeField(default=utc_now, index=True)
+    # modified: Union[DateTimeField, datetime.datetime] = DateTimeField(index=True, default=utc_now)
     # id: int
     user_id: Union[CharField, str] = CharField(index=True)
     question: Union[TextField, str] = TextField()
@@ -32,5 +32,5 @@ class Event(BaseDB):
     automatic: Union[BooleanField, bool] = BooleanField()
     read: Union[BooleanField, bool] = BooleanField(default=False)
     archived: Union[BooleanField, bool] = BooleanField(default=False)
-    created: Union[RealDatetimeField, datetime.datetime] = RealDatetimeField(default=BaseDB.utc_now)
+    created: Union[DateTimeField, datetime.datetime] = DateTimeField(default=utc_now)
     duration: Union[DoubleField, float] = DoubleField(default=0)

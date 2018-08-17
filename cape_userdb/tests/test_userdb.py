@@ -55,8 +55,9 @@ def test_delete_user():
 
     user = User(user_id='fake-id', password='test')
     user.save()
-
+    print(user.__dict__)
     user.delete_instance()
 
     test_user = User.get('user_id', 'fake-id')
+
     assert test_user is None

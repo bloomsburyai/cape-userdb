@@ -32,21 +32,6 @@ _PASSWORD_HASHER = argon2.PasswordHasher()
 _PASSWORD_HASHER_PREFIX = '$argon2i'
 
 
-class RealDatetimeField(DateTimeField):
-    db_field = 'datetime_fsp6'
-
-
-class CurrentTimestampField(DateTimeField):
-    db_field = 'TIMESTAMP'
-
-    def db_value(self, value):
-        return BaseDB.utc_now()
-
-
-class TimestampField(DateTimeField):
-    db_field = 'TIMESTAMP'
-
-
 class CompressedPickleField(BlobField):
     def __init__(self, *args, **kwargs):
         self.compression_level = _COMPRESSION_LEVEL
@@ -73,20 +58,16 @@ class ArgonField(CharField):
             return value
 
 
-def _utc_now() -> datetime.datetime:
+def utc_now() -> datetime.datetime:
     return datetime.datetime.utcnow().replace(tzinfo=utc)
 
 
 class BaseDB(Model):
-    modified: Union[CurrentTimestampField, datetime.datetime] = CurrentTimestampField(index=True, default=0)
+    modified: Union[DateTimeField, datetime.datetime] = DateTimeField(index=True, default=utc_now)
     id: int
 
     class Meta:
         database = DB
-
-    @staticmethod
-    def utc_now() -> datetime.datetime:
-        return datetime.datetime.utcnow().replace(tzinfo=utc)
 
     @classmethod
     def _get(cls, field_name: str, field_value: Any) -> Union[Model, None]:

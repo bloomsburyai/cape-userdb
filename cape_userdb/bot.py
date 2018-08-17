@@ -20,7 +20,7 @@ from cape_userdb.base import BaseDB
 
 class Bot(BaseDB):
     # Inherited fields are:
-    # modified: Union[RealDatetimeField, datetime.datetime] = RealDatetimeField(default=utc_now, index=True)
+    # modified: Union[DateTimeField, datetime.datetime] = DateTimeField(index=True, default=utc_now)
     # id: int
     user_id: Union[CharField, str] = CharField(index=True)
     bot_id: Union[CharField, str] = CharField(index=True, unique=True)
