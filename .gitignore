@@ -39,24 +39,5 @@ Dockerfile~
 *.DS_Store
 ###################
 
-# Generated test files #
-###################
-bloonet/tests/toy_data_tests/exp_stats_*
-bloonet/tests/toy_data_tests/test_dir*
-bloonet/tests/word_embed_tests/test_dir*
-data/toy_datasets/*
-
-# Storage #
-###########
-storage/stored
-
-# API Keys #
-###################
-*.env
-website/cache
-cache/*
-# Whoosh files #
-###################
-*.toc
-*.seg
-MAIN_WRITELOCK
+.pytest_cache
+*.sqlite
